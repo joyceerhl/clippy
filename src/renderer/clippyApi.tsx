@@ -56,12 +56,18 @@ export type ClippyApi = {
   clipboardWrite: (data: Data) => Promise<void>;
 };
 
+export type EnvironmentApi = {
+  isMac: boolean;
+}
+
 declare global {
   interface Window {
     electronAi: ElectronLlmRenderer;
     clippy: ClippyApi;
+    environment: EnvironmentApi;
   }
 }
 
 export const clippyApi = window["clippy"];
 export const electronAi = window["electronAi"];
+export const environment = window["environment"];

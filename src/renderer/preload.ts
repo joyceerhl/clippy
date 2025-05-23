@@ -102,3 +102,7 @@ const clippyApi: ClippyApi = {
 };
 
 contextBridge.exposeInMainWorld("clippy", clippyApi);
+
+contextBridge.exposeInMainWorld('environment', {
+  isMac: process.platform === 'darwin',
+});

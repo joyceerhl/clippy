@@ -1,7 +1,7 @@
 import { useChat } from "../contexts/ChatContext";
 import { TableView } from "./TableView";
 import { formatDistance } from "date-fns";
-import { clippyApi } from "../clippyApi";
+import { clippyApi, environment } from "../clippyApi";
 import { useState } from "react";
 
 export type SettingsTab = "general" | "model" | "advanced" | "about";
@@ -34,6 +34,11 @@ export const Chats: React.FC<SettingsProps> = ({ onClose }) => {
   const handleSelectChat = async (index: number) => {
     setSelectedChatIndex(index);
   };
+
+  const handleNewChat = async () => {
+    setSelectedChatIndex(null);
+    onClose();
+  }
 
   const handleRestoreChat = async () => {
     if (
@@ -121,10 +126,10 @@ export const Chats: React.FC<SettingsProps> = ({ onClose }) => {
         <h1>Chats</h1>
         <div style={{ display: "flex", gap: "8px" }}>
           <button
-            onClick={handleRestoreChat}
-            disabled={selectedChatIndex === null}
+            title={environment.isMac ? 'Cmd+N' : 'Ctrl+N'}
+            onClick={handleNewChat}
           >
-            Restore Chat
+            New Chat
           </button>
           <button
             onClick={handleDeleteSelected}
